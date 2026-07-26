@@ -27,5 +27,18 @@
 - Corners: rounded (`rounded-xl` / `rounded-2xl`) over sharp — friendlier, fits handmade crochet products better than a hard-edged e-commerce look.
 - Cards: soft shadow, not heavy — keep the visual weight low so photography is the focus.
 
+## Visual direction: Soft Craft Texture
+Chosen direction (of three options considered): subtle handmade-craft cues layered on an otherwise clean, minimal grid. This is the highest-risk-of-kitsch direction, so every cue below is a deliberate, restrained implementation choice — not decoration for its own sake.
+
+**Hard constraint: CSS/SVG only, no raster texture images.** A photographic "paper" or "fiber" texture image is exactly the kind of asset that blows the <1MB-per-page budget (PRD §8) for zero functional benefit. Every craft cue here is inline SVG or pure CSS — effectively free on the network.
+
+- **Section backgrounds**: an extremely subtle noise grain via an inline SVG `feTurbulence` filter, used as a `background-image` data URI at very low opacity (~2-4%) — reads as "not sterile-flat" without reading as "textured wallpaper." Applied sparingly (e.g. page background only), never stacked under photography.
+- **Dividers**: a thread-like dashed/wavy rule (inline SVG or a repeating-linear-gradient) in place of a plain solid `border-t`, used between major sections only — not on every card or list item, or it becomes noise.
+- **"New" badge shape**: a slightly organic/asymmetric border-radius (e.g. `border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px`) instead of a perfect pill — a classic lightweight CSS "hand-drawn blob" trick, zero asset cost.
+- **What we are NOT doing**: no hand-drawn/script decorative font (already ruled out for performance reasons above), no auto-rotating carousels (anti-pattern per modern design patterns — low engagement, and this project's product gallery is a tap-to-switch thumbnail strip, not a carousel), no textured photography backdrops behind product images (product photos per PRD §6 are plain/consistent background — don't compete with them).
+
+## Component states (define before styling, per component-anatomy discipline)
+Every interactive component (Button, FilterChip) needs: default, hover, focus-visible, active/pressed, disabled. Focus-visible must stay clearly visible — no `outline: none` without a real replacement — since this is a public site with no login gate to fall back on for accessibility assumptions.
+
 ## Applying these
 When building components, wire these into Tailwind's theme (`apps/web`'s Tailwind v4 CSS-first config) rather than hardcoding hex values in JSX — see [.claude/rules/project-rules.md](../.claude/rules/project-rules.md).

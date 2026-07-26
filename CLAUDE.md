@@ -8,6 +8,7 @@ Mobile-first product catalog + WhatsApp enquiry funnel for a handmade crochet bu
 - CMS: Sanity.io (free tier), embedded Studio at `/studio` — see [ADR-001](docs/ADR/ADR-001-embedded-sanity-studio.md)
 - Hosting: Vercel (free tier), git-based deploy
 - Monorepo: pnpm workspaces + Turborepo — see [ADR-003](docs/ADR/ADR-003-pnpm-turborepo.md)
+- Responsive strategy: mobile-first, container-query-first for the catalog grid — see [ADR-004](docs/ADR/ADR-004-mobile-first-responsive-strategy.md)
 - No backend/API server beyond Sanity + Next.js. No AWS, no Terraform, no custom infra at this scale.
 
 ## Repo Map
@@ -29,9 +30,10 @@ pnpm typecheck    # tsc --noEmit across the workspace
 ```
 
 ## Hard Rules — Never Violate
-See [.claude/rules/project-rules.md](.claude/rules/project-rules.md) for the full list. The two most likely to be silently violated under time pressure:
+See [.claude/rules/project-rules.md](.claude/rules/project-rules.md) for the full list. The three most likely to be silently violated under time pressure:
 1. **PRD §2 Non-Goals are locked.** No checkout, no accounts, no custom domain, no stock tracking, no multi-language. If asked to build one of these, flag it — don't assume the ask overrides the PRD.
 2. **Images always via Sanity CDN + `<Image>`.** Never a raw `<img>`. This is the PRD's own named mobile-performance risk.
+3. **Mobile-first, not desktop-shrunk-down.** Build for the 360px baseline first, enhance upward with `sm:`/`md:`/`lg:` — never `max-width` overrides. See [ADR-004](docs/ADR/ADR-004-mobile-first-responsive-strategy.md).
 
 ## Gotchas (read before touching related code)
 - Next.js is pinned to `^15.4.0` — `next-sanity` doesn't support 16 yet. See [ADR-002](docs/ADR/ADR-002-nextjs-15-pin.md) before touching `apps/web/package.json`'s `next` version.

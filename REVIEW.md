@@ -10,7 +10,9 @@ Review changes against these, in order of severity.
 
 ## WARNING — should fix before merge
 - Change likely to regress the Lighthouse mobile ≥85 / <1MB-per-page budget (PRD §8)
-- Layout breaks or degrades below 360px width
+- Layout breaks or degrades below 360px width, or uses `max-width` desktop-first overrides instead of mobile-first (ADR-004)
+- Product image missing explicit dimensions (`width`/`height` or `fill`+`sizes`), risking layout shift
+- Interactive element with a touch target below 44×44px
 - Product detail page missing OG metadata
 - Subcategory filter causing a full page reload instead of client-side filtering
 - Hardcoded color/spacing value instead of a token from `design/design-tokens.md`

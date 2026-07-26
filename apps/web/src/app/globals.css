@@ -1,26 +1,41 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #faf7f2;
+  --foreground: #2b2420;
+  --accent: #c1622d;
+  --accent-muted: #e8d5c4;
+  --whatsapp: #25d366;
+  --whatsapp-dark: #1da851;
+  --border: #e5ded4;
+
+  /* Soft Craft Texture: near-invisible grain, inline SVG (no raster asset) — see design/design-tokens.md */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-muted: var(--accent-muted);
+  --color-whatsapp: var(--whatsapp);
+  --color-whatsapp-dark: var(--whatsapp-dark);
+  --color-border: var(--border);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/*
+  Light-only by design: this is a warm, cream/terracotta "handmade goods" palette
+  (Soft Craft Texture direction, design/design-tokens.md). A naive prefers-color-scheme
+  invert to near-black would clash with that intent rather than serve it, and dark mode
+  was never requested for this project — so we deliberately don't ship a half-built one.
+*/
 
 body {
-  background: var(--background);
+  background-color: var(--background);
+  background-image: var(--grain);
+  background-blend-mode: overlay;
+  background-repeat: repeat;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }

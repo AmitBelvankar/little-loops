@@ -19,6 +19,11 @@ If a request would build any of these, say so explicitly rather than implementin
 
 ## Mobile-first
 - Every UI change must work cleanly at 360px width (PRD §4, §3 — visitors are mostly on mid-range Android, 3G/4G).
+- Build mobile-first (unprefixed Tailwind utilities = 360px baseline; `sm:`/`md:`/`lg:` add for larger screens) — never `max-width` overrides that assume desktop is the default.
+- The catalog grid uses container queries (`@container`), not viewport media queries, so its column count responds to its own container's width. Starting point: 2 columns at baseline, 3 at `md:`, 4 at `lg:` — revisit once real product photography exists.
+- Touch targets ≥44×44px on every interactive element.
+- Product images always get explicit dimensions (`width`/`height` or `fill`+`sizes`) — zero layout shift is a design constraint, not just a perf nice-to-have.
+- Full reasoning: [ADR-004](../../docs/ADR/ADR-004-mobile-first-responsive-strategy.md).
 
 ## Pricing
 - `price` is optional in the schema — render "Enquire for price" when blank, never force a price to display.
