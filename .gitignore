@@ -1,0 +1,19 @@
+node_modules/
+.pnpm-store/
+
+# Next.js
+.next/
+out/
+
+# Turborepo
+.turbo/
+
+# Env
+.env
+.env*.local
+
+# Misc
+.DS_Store
+*.log
+*.tsbuildinfo
+.vercel
