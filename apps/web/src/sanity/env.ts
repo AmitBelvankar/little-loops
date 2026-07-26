@@ -1,7 +1,8 @@
-// .trim() guards against trailing whitespace/newlines from pasting values into
-// a dashboard env-var field (a real, common cause of "invalid" values that look
-// correct — Vercel's build once failed here with the exact string "2025-01-01").
-export const apiVersion = (process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2025-01-01").trim();
+// Hardcoded, not env-configurable: this is an internal Sanity API version
+// constant, not something that legitimately differs between environments —
+// making it an env var only added a way to paste it in wrong (which happened
+// on Vercel: the exact same valid-looking string failed there, twice).
+export const apiVersion = "2025-01-01";
 
 export const dataset = assertValue(
   process.env.NEXT_PUBLIC_SANITY_DATASET,
