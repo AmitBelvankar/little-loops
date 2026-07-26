@@ -1,32 +1,29 @@
-import { Badge } from "@/components/ui/Badge";
-import { Button } from "@/components/ui/Button";
+import { CatalogGrid } from "@/components/product/CatalogGrid";
+import { FilterBar } from "@/components/product/FilterBar";
 import { Container } from "@/components/layout/Container";
+import { EmptyState } from "@/components/ui/EmptyState";
+import { getProducts, getSubcategories } from "@/sanity/queries";
 
-/**
- * Temporary design-direction preview — NOT the real catalog grid (F01).
- * Exists only to check the Soft Craft Texture direction and component
- * primitives before wiring real Sanity product data.
- */
-export default function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ subcategory?: string }>;
+}) {
+  const { subcategory } = await searchParams;
+  const [products, subcategories] = await Promise.all([
+    getProducts(subcategory),
+    getSubcategories(),
+  ]);
+
   return (
     <Container>
-      <div className="flex flex-col gap-10 py-16">
-        <div className="flex flex-col gap-3">
-          <Badge>New</Badge>
-          <h1 className="text-3xl font-semibold tracking-tight">Design direction preview</h1>
-          <p className="max-w-md text-foreground/70">
-            Soft Craft Texture — cream background with a near-invisible grain, terracotta
-            accent, thread-like dividers, organic badge shape. Real catalog grid comes next.
-          </p>
-        </div>
-
-        <div className="flex flex-wrap gap-3">
-          <Button variant="primary">Primary button</Button>
-          <Button variant="secondary">Secondary button</Button>
-          <Button variant="whatsapp" href="https://wa.me/">
-            WhatsApp CTA
-          </Button>
-        </div>
+      <div className="flex flex-col gap-8 py-8">
+        <FilterBar subcategories={subcategories} activeSlug={subcategory} />
+        {products.length === 0 ? (
+          <EmptyState message="No products here yet — check back soon." />
+        ) : (
+          <CatalogGrid products={products} />
+        )}
       </div>
     </Container>
   );

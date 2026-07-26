@@ -13,8 +13,8 @@ Product/category/subcategory schemas that let the content owner (non-technical) 
 - [ ] Wife successfully adds a product end-to-end without dev help (first-week dry run, PRD §8)
 
 ## Edge Cases
-- Price left blank → front end must render "Enquire for price", not `₹undefined` or a blank
-- Product without a subcategory — schema marks `subcategory` required, so Studio should block save rather than allow an orphaned product
+- [x] Price left blank → front end renders "Enquire for price" — verified: GROQ returns `null` (not `undefined`) for a projected-but-absent field, and `formatPrice()` checks for exactly that
+- [x] Product without a subcategory — `subcategory` field has `validation: rule.required()` in the schema (packages/sanity-schema/src/schemaTypes/product.ts:51), confirmed present
 
 ## PRD Reference
 §4 Must Have (CMS schema), §5 Data model, §8 Product success metric
